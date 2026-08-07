@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>แบบประเมินภาวะแทรกซ้อนจากการนอนติดเตียง</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16231f;
+    --paper:#f5f7f4;
+    --card:#ffffff;
+    --line:#dde3dc;
+    --teal:#0f6e5f;
+    --teal-deep:#0a4f45;
+    --teal-tint:#e3f1ed;
+    --amber:#b5750f;
+    --amber-tint:#fbf0dd;
+    --red:#a3352b;
+    --red-tint:#fbe6e3;
+    --muted:#5c6d65;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Sarabun', sans-serif;
+    background:
+      radial-gradient(1200px 600px at 100% -10%, #eef5f1 0%, transparent 60%),
+      var(--paper);
+    color:var(--ink);
+    padding-bottom:80px;
+  }
+  header{
+    background:linear-gradient(135deg, var(--teal-deep), var(--teal));
+    color:#fff;
+    padding:28px 20px 34px;
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";
+    position:absolute;
+    right:-40px; top:-40px;
+    width:180px; height:180px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.08);
+  }
+  .eyebrow{
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    opacity:.85;
+    font-weight:600;
+  }
+  h1{
+    margin:6px 0 4px;
+    font-size:22px;
+    font-weight:700;
+    line-height:1.35;
+  }
+  .sub{
+    font-size:13.5px;
+    opacity:.9;
+  }
+  main{
+    max-width:640px;
+    margin:-18px auto 0;
+    padding:0 16px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:18px 18px 6px;
+    margin-bottom:16px;
+    box-shadow:0 1px 2px rgba(20,40,30,0.04);
+  }
+  .card-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--line);
+  }
+  .num{
+    flex:0 0 auto;
+    width:28px; height:28px;
+    border-radius:8px;
+    background:var(--teal-tint);
+    color:var(--teal-deep);
+    font-weight:700;
+    font-size:13px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .card-title{font-weight:700; font-size:15.5px;}
+  .card-desc{font-size:12.5px; color:var(--muted); margin-top:1px;}
+  label.field{display:block; margin-bottom:14px;}
+  .flabel{
+    display:block;
+    font-size:13.5px;
+    font-weight:600;
+    margin-bottom:6px;
+    color:#2b3a33;
+  }
+  .flabel .opt{font-weight:400; color:var(--muted); font-size:12px;}
+  input[type=text], input[type=date], input[type=number], select, textarea{
+    width:100%;
+    font-family:inherit;
+    font-size:14.5px;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:9px;
+    background:#fbfcfb;
+    color:var(--ink);
+    -webkit-appearance:none;
+  }
+  textarea{resize:vertical; min-height:60px;}
+  input:focus, select:focus, textarea:focus{
+    outline:2px solid var(--teal);
+    outline-offset:1px;
+    background:#fff;
+  }
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .toggle-group{display:flex; gap:8px; flex-wrap:wrap;}
+  .toggle{
+    flex:1 1 auto;
+    text-align:center;
+    padding:9px 10px;
+    border-radius:9px;
+    border:1px solid var(--line);
+    background:#fbfcfb;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--muted);
+    cursor:pointer;
+    user-select:none;
+    transition:.12s;
+    min-width:70px;
+  }
+  .toggle input{position:absolute; opacity:0; pointer-events:none;}
+  .toggle.on-yes{background:var(--red-tint); border-color:#e3b3ac; color:var(--red);}
+  .toggle.on-no{background:var(--teal-tint); border-color:#a9d3c8; color:var(--teal-deep);}
+  .chip-group{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    padding:8px 12px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    background:#fbfcfb;
+    font-size:13px;
+    font-weight:500;
+    color:var(--muted);
+    cursor:pointer;
+    user-select:none;
+  }
+  .chip input{position:absolute; opacity:0; pointer-events:none;}
+  .chip.checked{background:var(--teal-tint); border-color:#a9d3c8; color:var(--teal-deep); font-weight:600;}
+  .subblock{
+    border-left:3px solid var(--teal-tint);
+    padding-left:12px;
+    margin:6px 0 16px 2px;
+    display:none;
+  }
+  .subblock.show{display:block;}
+  .braden-section{margin-bottom:18px;}
+  .braden-head{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px; margin-bottom:9px;
+  }
+  .braden-head h3{margin:0; font-size:13.5px; font-weight:700; color:#2b3a33;}
+  .braden-badge{
+    min-width:34px; text-align:center; padding:4px 9px;
+    border-radius:20px; background:var(--teal-tint); color:var(--teal-deep);
+    font-weight:800; font-size:12.5px;
+  }
+  .b-options{display:grid; grid-template-columns:repeat(4,1fr); gap:8px;}
+  .b-options.three{grid-template-columns:repeat(3,1fr);}
+  .b-opt{position:relative;}
+  .b-opt input{position:absolute; opacity:0; pointer-events:none;}
+  .b-opt label{
+    display:block; height:100%; padding:10px;
+    border:1.5px solid var(--line); background:#fbfcfb;
+    border-radius:11px; cursor:pointer; transition:.15s;
+  }
+  .b-opt input:checked + label{
+    border-color:var(--teal); background:var(--teal-tint);
+    box-shadow:0 0 0 2px rgba(15,110,95,0.12);
+  }
+  .b-n{
+    width:24px; height:24px; border-radius:7px;
+    display:inline-grid; place-items:center;
+    background:#edf1ee; color:#3a4a44; font-weight:800; font-size:12px;
+    margin-bottom:6px;
+  }
+  .b-opt input:checked + label .b-n{background:var(--teal); color:#fff;}
+  .b-otitle{font-weight:700; font-size:12.5px; margin-bottom:3px; color:#223029;}
+  .b-odesc{font-size:11px; color:var(--muted); line-height:1.4;}
+  .score-banner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:var(--teal-tint);
+    color:var(--teal-deep);
+    border-radius:9px;
+    padding:9px 13px;
+    font-size:13.5px;
+    font-weight:700;
+    margin:4px 0 14px;
+  }
+  .score-banner.warn{background:var(--amber-tint); color:var(--amber);}
+  .score-banner.danger{background:var(--red-tint); color:var(--red);}
+  @media (max-width:520px){
+    .b-options, .b-options.three{grid-template-columns:1fr 1fr;}
+  }
+  .hint{font-size:12px; color:var(--muted); margin-top:-8px; margin-bottom:12px;}
+  .footer-bar{
+    position:fixed; left:0; right:0; bottom:0;
+    background:rgba(245,247,244,0.92);
+    backdrop-filter:blur(6px);
+    border-top:1px solid var(--line);
+    padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  }
+  .submit-btn{
+    max-width:640px;
+    margin:0 auto;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    width:100%;
+    background:var(--teal-deep);
+    color:#fff;
+    border:none;
+    padding:14px;
+    border-radius:11px;
+    font-size:15.5px;
+    font-weight:700;
+    font-family:inherit;
+    cursor:pointer;
+  }
+  .submit-btn:disabled{opacity:.6;}
+  .toast{
+    position:fixed; left:50%; top:18px; transform:translateX(-50%);
+    background:var(--teal-deep); color:#fff;
+    padding:12px 20px; border-radius:10px;
+    font-size:14px; font-weight:600;
+    box-shadow:0 6px 18px rgba(10,50,40,0.25);
+    opacity:0; pointer-events:none; transition:.25s;
+    z-index:50; max-width:88vw; text-align:center;
+  }
+  .toast.err{background:var(--red);}
+  .toast.show{opacity:1; top:26px;}
+  .required-mark{color:var(--red);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">ศูนย์เครื่องมือแพทย์ · การพยาบาลผู้ป่วยวิกฤต</div>
+  <h1>แบบประเมินภาวะแทรกซ้อน<br>จากการนอนติดเตียง</h1>
+  <div class="sub">แผลกดทับ · ลิ่มเลือดอุดตันหลอดเลือดดำ · ปอดอักเสบจากเครื่องช่วยหายใจ</div>
+</header>
+
+<main>
+  <div class="toast" id="toast"></div>
+
+  <form id="assessForm">
+
+    <!-- 1. ข้อมูลผู้ป่วย -->
+    <section class="card">
+      <div class="card-head">
+        <div class="num">1</div>
+        <div>
+          <div class="card-title">ข้อมูลผู้ป่วย</div>
+          <div class="card-desc">ระบุข้อมูลพื้นฐานของผู้ป่วยและผู้ประเมิน</div>
+        </div>
+      </div>
+
+      <div class="row2">
+        <label class="field">
+          <span class="flabel">HN <span class="required-mark">*</span></span>
+          <input type="text" name="hn" required inputmode="numeric" placeholder="เช่น 6801234">
+        </label>
+        <label class="field">
+          <span class="flabel">ชื่อ-สกุลผู้ป่วย <span class="required-mark">*</span></span>
+          <input type="text" name="patientName" required placeholder="เช่น นาย ก. ใจดี">
+        </label>
+      </div>
+
+      <div class="row2">
+        <label class="field">
+          <span class="flabel">Ward / เตียง <span class="required-mark">*</span></span>
+          <input type="text" name="wardBed" required placeholder="เช่น ICU เตียง 3">
+        </label>
+        <label class="field">
+          <span class="flabel">วันที่ประเมิน <span class="required-mark">*</span></span>
+          <input type="date" name="assessDate" required>
+        </label>
+      </div>
+
+      <div class="row2">
+        <label class="field">
+          <span class="flabel">วันที่นอนโรงพยาบาล (วัน)</span>
+          <input type="number" name="daysAdmitted" min="0" placeholder="เช่น 5">
+        </label>
+        <label class="field">
+          <span class="flabel">ผู้ประเมิน <span class="required-mark">*</span></span>
+          <input type="text" name="assessor" required placeholder="ชื่อผู้ประเมิน">
+        </label>
+      </div>
+    </section>
+
+    <!-- 2. แผลกดทับ -->
+    <section class="card">
+      <div class="card-head">
+        <div class="num">2</div>
+        <div>
+          <div class="card-title">แผลกดทับ (Pressure Injury)</div>
+          <div class="card-desc">ประเมินความเสี่ยงด้วย Braden Scale และตรวจร่างกาย</div>
+        </div>
+      </div>
+
+      <label class="field">
+        <span class="flabel">พบแผลกดทับหรือไม่</span>
+        <div class="toggle-group" data-toggle="piPresent">
+          <label class="toggle"><input type="radio" name="piPresent" value="พบ">พบ</label>
+          <label class="toggle"><input type="radio" name="piPresent" value="ไม่พบ" checked>ไม่พบ</label>
+        </div>
+      </label>
+
+      <div class="subblock" id="piDetail">
+        <div class="row2">
+          <label class="field">
+            <span class="flabel">ตำแหน่ง</span>
+            <input type="text" name="piLocation" placeholder="เช่น ก้นกบ, ส้นเท้า">
+          </label>
+          <label class="field">
+            <span class="flabel">ระยะ (Stage)</span>
+            <select name="piStage">
+              <option value="">เลือกระยะ</option>
+              <option>Stage 1</option>
+              <option>Stage 2</option>
+              <option>Stage 3</option>
+              <option>Stage 4</option>
+              <option>Unstageable</option>
+              <option>Deep Tissue Injury (DTI)</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="hint" style="margin-top:0;">Braden Scale — คะแนนยิ่งน้อย ยิ่งเสี่ยงสูง (คะแนนรวม 6–23) กรุณาเลือกให้ครบทั้ง 6 หมวด</div>
+
+      <div id="bradenForm"></div>
+
+      <div class="score-banner" id="bradenBanner">ยังประเมินไม่ครบ — เลือกให้ครบ 6 หมวด</div>
+    </section>
+
+    <!-- 3. ลิ่มเลือดอุดตัน -->
+    <section class="card">
+      <div class="card-head">
+        <div class="num">3</div>
+        <div>
+          <div class="card-title">ลิ่มเลือดอุดตันหลอดเลือดดำ (VTE/DVT)</div>
+          <div class="card-desc">ประเมินอาการและการป้องกัน</div>
+        </div>
+      </div>
+
+      <label class="field">
+        <span class="flabel">อาการ/อาการแสดงที่พบ (เลือกได้มากกว่า 1)</span>
+        <div class="chip-group" id="dvtSymptoms">
+          <label class="chip"><input type="checkbox" name="dvtSym" value="ขาบวม">ขาบวม</label>
+          <label class="chip"><input type="checkbox" name="dvtSym" value="ปวดน่อง">ปวดน่อง</label>
+          <label class="chip"><input type="checkbox" name="dvtSym" value="แดง ร้อนบริเวณขา">แดง ร้อนบริเวณขา</label>
+          <label class="chip"><input type="checkbox" name="dvtSym" value="Homans sign บวก">Homans sign บวก</label>
+          <label class="chip"><input type="checkbox" name="dvtSym" value="เส้นรอบขาสองข้างต่างกัน">เส้นรอบขาสองข้างต่างกัน &gt;2 ซม.</label>
+          <label class="chip"><input type="checkbox" name="dvtSym" value="ไม่พบอาการ">ไม่พบอาการ</label>
+        </div>
+      </label>
+
+      <label class="field">
+        <span class="flabel">ได้รับการป้องกัน VTE หรือไม่</span>
+        <div class="toggle-group" data-toggle="vteProphy">
+          <label class="toggle"><input type="radio" name="vteProphy" value="ได้รับ - กลไก (SCD/ถุงน่อง)">กลไก</label>
+          <label class="toggle"><input type="radio" name="vteProphy" value="ได้รับ - ยา (Anticoagulant)">ยา</label>
+          <label class="toggle"><input type="radio" name="vteProphy" value="ไม่ได้รับ" checked>ไม่ได้รับ</label>
+        </div>
+      </label>
+    </section>
+
+    <!-- 4. VAP -->
+    <section class="card">
+      <div class="card-head">
+        <div class="num">4</div>
+        <div>
+          <div class="card-title">ปอดอักเสบจากเครื่องช่วยหายใจ (VAP)</div>
+          <div class="card-desc">สำหรับผู้ป่วยที่ใส่เครื่องช่วยหายใจ</div>
+        </div>
+      </div>
+
+      <label class="field">
+        <span class="flabel">ใส่เครื่องช่วยหายใจหรือไม่</span>
+        <div class="toggle-group" data-toggle="onVent">
+          <label class="toggle"><input type="radio" name="onVent" value="ใส่">ใส่</label>
+          <label class="toggle"><input type="radio" name="onVent" value="ไม่ได้ใส่" checked>ไม่ได้ใส่</label>
+        </div>
+      </label>
+
+      <div class="subblock" id="ventDetail">
+        <label class="field">
+          <span class="flabel">จำนวนวันที่ใส่เครื่องช่วยหายใจ</span>
+          <input type="number" name="ventDays" min="0" placeholder="จำนวนวัน">
+        </label>
+
+        <label class="field">
+          <span class="flabel">อาการ/อาการแสดงเข้าได้กับ VAP (เลือกได้มากกว่า 1)</span>
+          <div class="chip-group">
+            <label class="chip"><input type="checkbox" name="vapSign" value="ไข้ >38C">ไข้ &gt;38°C</label>
+            <label class="chip"><input type="checkbox" name="vapSign" value="เสมหะเปลี่ยนสี/ปริมาณเพิ่ม">เสมหะเปลี่ยนสี/ปริมาณเพิ่ม</label>
+            <label class="chip"><input type="checkbox" name="vapSign" value="CXR พบ infiltrate ใหม่">CXR พบ infiltrate ใหม่</label>
+            <label class="chip"><input type="checkbox" name="vapSign" value="WBC ผิดปกติ">WBC &gt;12,000 หรือ &lt;4,000</label>
+            <label class="chip"><input type="checkbox" name="vapSign" value="ไม่พบอาการ">ไม่พบอาการ</label>
+          </div>
+        </label>
+
+        <label class="field">
+          <span class="flabel">การปฏิบัติตาม VAP Bundle (เลือกได้มากกว่า 1)</span>
+          <div class="chip-group">
+            <label class="chip"><input type="checkbox" name="vapBundle" value="ยกหัวเตียง 30-45 องศา">ยกหัวเตียง 30–45°</label>
+            <label class="chip"><input type="checkbox" name="vapBundle" value="ดูแลช่องปาก">ดูแลช่องปากด้วย Chlorhexidine</label>
+            <label class="chip"><input type="checkbox" name="vapBundle" value="Sedation vacation">Sedation vacation ประเมินรายวัน</label>
+            <label class="chip"><input type="checkbox" name="vapBundle" value="ป้องกัน PUD">ป้องกัน Peptic Ulcer Disease</label>
+            <label class="chip"><input type="checkbox" name="vapBundle" value="ป้องกัน DVT">ป้องกัน DVT ร่วมด้วย</label>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <!-- 5. สรุปและการจัดการ -->
+    <section class="card">
+      <div class="card-head">
+        <div class="num">5</div>
+        <div>
+          <div class="card-title">สรุปผลและการจัดการเบื้องต้น</div>
+          <div class="card-desc">ระบุการดูแล/ส่งต่อเพิ่มเติม (ถ้ามี)</div>
+        </div>
+      </div>
+
+      <label class="field">
+        <span class="flabel">ระดับความเสี่ยงโดยรวม</span>
+        <div class="toggle-group" data-toggle="overallRisk">
+          <label class="toggle"><input type="radio" name="overallRisk" value="ต่ำ" checked>ต่ำ</label>
+          <label class="toggle"><input type="radio" name="overallRisk" value="ปานกลาง">ปานกลาง</label>
+          <label class="toggle"><input type="radio" name="overallRisk" value="สูง">สูง</label>
+        </div>
+      </label>
+
+      <label class="field">
+        <span class="flabel">การพยาบาล/การจัดการเบื้องต้น <span class="opt">(ไม่บังคับ)</span></span>
+        <textarea name="nursingAction" placeholder="เช่น พลิกตัวทุก 2 ชม., รายงานแพทย์, ปรับแผนการดูแล"></textarea>
+      </label>
+    </section>
+
+  </form>
+</main>
+
+<div class="footer-bar">
+  <button type="submit" form="assessForm" class="submit-btn" id="submitBtn">
+    บันทึกข้อมูลเข้า Google Sheet
+  </button>
+</div>
+
+<script>
+  // ===================== ตั้งค่า =====================
+  const CONFIG = {
+    // วาง URL ของ Google Apps Script Web App ที่ deploy แล้วตรงนี้
+    API_URL: "https://script.google.com/macros/s/AKfycbzyfDO0R24Ob434jKlTrl3qpuXDzAWf2hAspY7ab83EKKKAI1Pe4BK_MOZ2iXTs1OiDbA/exec"
+  };
+
+  // ตั้งวันที่วันนี้เป็นค่าเริ่มต้น
+  document.querySelector('input[name="assessDate"]').valueAsDate = new Date();
+
+  // ---- toggle styling (radio groups) ----
+  document.querySelectorAll('.toggle-group').forEach(group => {
+    const sync = () => {
+      group.querySelectorAll('.toggle').forEach(t => {
+        const input = t.querySelector('input');
+        t.classList.remove('on-yes','on-no');
+        if(input.checked){
+          const v = input.value;
+          if(v.includes('ไม่')) t.classList.add('on-no');
+          else t.classList.add('on-yes');
+        }
+      });
+    };
+    group.addEventListener('change', sync);
+    sync();
+  });
+
+  // ---- chip styling (checkboxes) ----
+  document.querySelectorAll('.chip').forEach(chip => {
+    const input = chip.querySelector('input');
+    const sync = () => chip.classList.toggle('checked', input.checked);
+    input.addEventListener('change', sync);
+    sync();
+  });
+
+  // ---- show/hide sub-blocks ----
+  function bindSub(radioName, blockId, showValue){
+    document.querySelectorAll(`input[name="${radioName}"]`).forEach(r=>{
+      r.addEventListener('change', ()=>{
+        document.getElementById(blockId).classList.toggle('show', r.value===showValue && r.checked);
+      });
+    });
+  }
+  bindSub('piPresent','piDetail','พบ');
+  bindSub('onVent','ventDetail','ใส่');
+
+  // ---- Braden Scale: build detailed option cards (6 categories) ----
+  const bradenSections = [
+    {
+      key:'bSensory', title:'การรับความรู้สึก (Sensory Perception)', max:4,
+      options:[
+        ['1','บกพร่องอย่างสมบูรณ์','ไม่ตอบสนองต่อสิ่งกระตุ้น หรือไม่สามารถรับรู้ความเจ็บปวดได้'],
+        ['2','บกพร่องมาก','ตอบสนองต่อสิ่งกระตุ้นจำกัด หรือรับรู้ความเจ็บปวดได้เพียงบางส่วน'],
+        ['3','บกพร่องเล็กน้อย','ตอบสนองได้ แต่มีข้อจำกัดบางส่วน'],
+        ['4','ปกติ','รับรู้และตอบสนองต่อความไม่สุขสบายได้ตามปกติ']
+      ]
+    },
+    {
+      key:'bMoisture', title:'ความชื้นของผิวหนัง (Moisture)', max:4,
+      options:[
+        ['1','เปียกชื้นตลอดเวลา','ผิวหนังสัมผัสความชื้นเกือบตลอดเวลา'],
+        ['2','เปียกชื้นมาก','ผ้าปูหรือเสื้อผ้าต้องเปลี่ยนอย่างน้อยทุกเวร'],
+        ['3','เปียกชื้นเป็นครั้งคราว','ต้องเปลี่ยนผ้าปูเพิ่มเติมประมาณวันละ 1–2 ครั้ง'],
+        ['4','ไม่ค่อยเปียกชื้น','ผิวหนังแห้งเป็นส่วนใหญ่ เปลี่ยนผ้าตามรอบปกติ']
+      ]
+    },
+    {
+      key:'bActivity', title:'กิจกรรม (Activity)', max:4,
+      options:[
+        ['1','ติดเตียง','ไม่สามารถลุกจากเตียงได้'],
+        ['2','นั่งเก้าอี้','เดินได้น้อยมาก/ไม่ได้ ต้องช่วยเคลื่อนย้าย'],
+        ['3','เดินได้เป็นครั้งคราว','เดินระยะสั้นเป็นครั้งคราว'],
+        ['4','เดินได้บ่อย','เดินนอกห้องอย่างน้อยวันละ 2 ครั้ง และในห้องเป็นระยะ']
+      ]
+    },
+    {
+      key:'bMobility', title:'การเคลื่อนไหวร่างกาย (Mobility)', max:4,
+      options:[
+        ['1','เคลื่อนไหวไม่ได้','ไม่สามารถเปลี่ยนท่าร่างกายได้เอง'],
+        ['2','จำกัดมาก','เปลี่ยนท่าได้เล็กน้อย แต่ทำเองสม่ำเสมอไม่ได้'],
+        ['3','จำกัดเล็กน้อย','เปลี่ยนท่าได้เองเป็นครั้งคราว'],
+        ['4','ไม่จำกัด','เคลื่อนไหวและเปลี่ยนท่าได้เองอย่างอิสระ']
+      ]
+    },
+    {
+      key:'bNutrition', title:'ภาวะโภชนาการ (Nutrition)', max:4,
+      options:[
+        ['1','แย่มาก','รับประทานได้น้อยมาก หรือได้รับอาหารไม่เพียงพอเป็นเวลานาน'],
+        ['2','น่าจะไม่เพียงพอ','รับประทานได้ประมาณครึ่งหนึ่งของอาหาร'],
+        ['3','เพียงพอ','รับประทานได้มากกว่าครึ่งหนึ่ง และมีโปรตีนเพียงพอ'],
+        ['4','ดีเยี่ยม','รับประทานอาหารได้ครบเกือบทุกมื้อ ไม่ปฏิเสธอาหาร']
+      ]
+    },
+    {
+      key:'bFriction', title:'แรงเสียดทานและแรงเฉือน (Friction and Shear)', max:3,
+      options:[
+        ['1','มีปัญหา','ต้องช่วยเคลื่อนย้ายมาก มีการเสียดสี/ไถลบนเตียงบ่อย'],
+        ['2','มีปัญหาบางส่วน','เคลื่อนไหวได้บ้าง แต่ยังมีโอกาสเสียดสีหรือไถล'],
+        ['3','ไม่มีปัญหาชัดเจน','เคลื่อนไหวได้ดีพอ ยกตัวได้ขณะเคลื่อนย้าย']
+      ]
+    }
+  ];
+
+  const bradenForm = document.getElementById('bradenForm');
+  bradenSections.forEach(s => {
+    const wrap = document.createElement('div');
+    wrap.className = 'braden-section';
+    const cls = s.max === 3 ? 'b-options three' : 'b-options';
+    wrap.innerHTML = `
+      <div class="braden-head">
+        <h3>${s.title}</h3>
+        <span id="bbadge-${s.key}" class="braden-badge">—</span>
+      </div>
+      <div class="${cls}">
+        ${s.options.map(o => `
+          <div class="b-opt">
+            <input type="radio" name="${s.key}" id="${s.key}${o[0]}" value="${o[0]}" required>
+            <label for="${s.key}${o[0]}">
+              <span class="b-n">${o[0]}</span>
+              <div class="b-otitle">${o[1]}</div>
+              <div class="b-odesc">${o[2]}</div>
+            </label>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    bradenForm.appendChild(wrap);
+  });
+
+  bradenForm.querySelectorAll('input[type=radio]').forEach(el => el.addEventListener('change', calcBraden));
+
+  function calcBraden(){
+    let total = 0, done = 0;
+    bradenSections.forEach(s => {
+      const sel = bradenForm.querySelector(`input[name="${s.key}"]:checked`);
+      const badge = document.getElementById(`bbadge-${s.key}`);
+      if(sel){ total += Number(sel.value); done++; badge.textContent = sel.value; }
+      else badge.textContent = '—';
+    });
+
+    const banner = document.getElementById('bradenBanner');
+    banner.classList.remove('warn','danger');
+
+    if(done < 6){
+      banner.textContent = `ประเมินแล้ว ${done}/6 หมวด — เหลืออีก ${6-done} หมวด`;
+      return total;
+    }
+
+    let label = 'ไม่มีความเสี่ยง';
+    if(total <= 9){ banner.classList.add('danger'); label = 'เสี่ยงสูงมาก'; }
+    else if(total <= 12){ banner.classList.add('danger'); label = 'เสี่ยงสูง'; }
+    else if(total <= 14){ banner.classList.add('warn'); label = 'เสี่ยงปานกลาง'; }
+    else if(total <= 18){ label = 'เสี่ยงน้อย'; }
+    banner.textContent = `Braden Score รวม: ${total}/23 — ${label}`;
+    return total;
+  }
+  calcBraden();
+
+  // ---- toast ----
+  function showToast(msg, isErr){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.toggle('err', !!isErr);
+    t.classList.add('show');
+    setTimeout(()=> t.classList.remove('show'), 3200);
+  }
+
+  // ---- submit ----
+  const form = document.getElementById('assessForm');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if(!form.checkValidity()){
+      form.reportValidity();
+      return;
+    }
+
+    if(CONFIG.API_URL.includes('YOUR_DEPLOYMENT_ID')){
+      showToast('ยังไม่ได้ตั้งค่า API_URL — ดูวิธี deploy Google Apps Script', true);
+      return;
+    }
+
+    const fd = new FormData(form);
+    const data = {};
+    fd.forEach((val, key) => {
+      if(data[key] !== undefined){
+        data[key] = Array.isArray(data[key]) ? [...data[key], val] : [data[key], val];
+      } else {
+        data[key] = val;
+      }
+    });
+    // normalize checkbox groups to comma-joined strings
+    ['dvtSym','vapSign','vapBundle'].forEach(k=>{
+      if(Array.isArray(data[k])) data[k] = data[k].join(', ');
+      else if(data[k]) data[k] = data[k];
+      else data[k] = '';
+    });
+    data.bradenTotal = calcBraden();
+    data.submittedAt = new Date().toISOString();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'กำลังบันทึก...';
+
+    try {
+      const res = await fetch(CONFIG.API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // หลีกเลี่ยง CORS preflight
+        body: JSON.stringify(data)
+      });
+      const result = await res.json();
+      if(result.status === 'success'){
+        showToast('บันทึกข้อมูลสำเร็จ ✓');
+        form.reset();
+        document.querySelector('input[name="assessDate"]').valueAsDate = new Date();
+        document.querySelectorAll('.toggle-group').forEach(g=>g.dispatchEvent(new Event('change')));
+        document.querySelectorAll('.chip input').forEach(c=>c.dispatchEvent(new Event('change')));
+        document.getElementById('piDetail').classList.remove('show');
+        document.getElementById('ventDetail').classList.remove('show');
+        calcBraden();
+      } else {
+        showToast('เกิดข้อผิดพลาด: ' + (result.message || 'ไม่ทราบสาเหตุ'), true);
+      }
+    } catch(err){
+      showToast('ส่งข้อมูลไม่สำเร็จ ตรวจสอบอินเทอร์เน็ต', true);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'บันทึกข้อมูลเข้า Google Sheet';
+    }
+  });
+</script>
+
+</body>
+</html>
