@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<title>แบบประเมินภาวะแทรกซ้อนจากการนอนติดเตียง</title>
+<title>แบบบันทึก Braden Scale</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -255,9 +255,9 @@
 <body>
 
 <header>
-  <div class="eyebrow">ศูนย์เครื่องมือแพทย์ · การพยาบาลผู้ป่วยวิกฤต</div>
-  <h1>แบบประเมินภาวะแทรกซ้อน<br>จากการนอนติดเตียง</h1>
-  <div class="sub">แผลกดทับ · ลิ่มเลือดอุดตันหลอดเลือดดำ · ปอดอักเสบจากเครื่องช่วยหายใจ</div>
+  <div class="eyebrow">แผนกผู้ป่วยอายุรกรรมชาย กาญจนาภิเษก 2</div>
+  <h1>แบบบันทึก<br>Braden Scale</h1>
+  <div class="sub">ประเมินความเสี่ยงแผลกดทับในผู้ป่วยนอนติดเตียง</div>
 </header>
 
 <main>
@@ -277,8 +277,8 @@
 
       <div class="row2">
         <label class="field">
-          <span class="flabel">HN <span class="required-mark">*</span></span>
-          <input type="text" name="hn" required inputmode="numeric" placeholder="เช่น 6801234">
+          <span class="flabel">AN <span class="required-mark">*</span></span>
+          <input type="text" name="an" required inputmode="numeric" placeholder="เช่น 6801234">
         </label>
         <label class="field">
           <span class="flabel">ชื่อ-สกุลผู้ป่วย <span class="required-mark">*</span></span>
@@ -355,111 +355,6 @@
       <div class="score-banner" id="bradenBanner">ยังประเมินไม่ครบ — เลือกให้ครบ 6 หมวด</div>
     </section>
 
-    <!-- 3. ลิ่มเลือดอุดตัน -->
-    <section class="card">
-      <div class="card-head">
-        <div class="num">3</div>
-        <div>
-          <div class="card-title">ลิ่มเลือดอุดตันหลอดเลือดดำ (VTE/DVT)</div>
-          <div class="card-desc">ประเมินอาการและการป้องกัน</div>
-        </div>
-      </div>
-
-      <label class="field">
-        <span class="flabel">อาการ/อาการแสดงที่พบ (เลือกได้มากกว่า 1)</span>
-        <div class="chip-group" id="dvtSymptoms">
-          <label class="chip"><input type="checkbox" name="dvtSym" value="ขาบวม">ขาบวม</label>
-          <label class="chip"><input type="checkbox" name="dvtSym" value="ปวดน่อง">ปวดน่อง</label>
-          <label class="chip"><input type="checkbox" name="dvtSym" value="แดง ร้อนบริเวณขา">แดง ร้อนบริเวณขา</label>
-          <label class="chip"><input type="checkbox" name="dvtSym" value="Homans sign บวก">Homans sign บวก</label>
-          <label class="chip"><input type="checkbox" name="dvtSym" value="เส้นรอบขาสองข้างต่างกัน">เส้นรอบขาสองข้างต่างกัน &gt;2 ซม.</label>
-          <label class="chip"><input type="checkbox" name="dvtSym" value="ไม่พบอาการ">ไม่พบอาการ</label>
-        </div>
-      </label>
-
-      <label class="field">
-        <span class="flabel">ได้รับการป้องกัน VTE หรือไม่</span>
-        <div class="toggle-group" data-toggle="vteProphy">
-          <label class="toggle"><input type="radio" name="vteProphy" value="ได้รับ - กลไก (SCD/ถุงน่อง)">กลไก</label>
-          <label class="toggle"><input type="radio" name="vteProphy" value="ได้รับ - ยา (Anticoagulant)">ยา</label>
-          <label class="toggle"><input type="radio" name="vteProphy" value="ไม่ได้รับ" checked>ไม่ได้รับ</label>
-        </div>
-      </label>
-    </section>
-
-    <!-- 4. VAP -->
-    <section class="card">
-      <div class="card-head">
-        <div class="num">4</div>
-        <div>
-          <div class="card-title">ปอดอักเสบจากเครื่องช่วยหายใจ (VAP)</div>
-          <div class="card-desc">สำหรับผู้ป่วยที่ใส่เครื่องช่วยหายใจ</div>
-        </div>
-      </div>
-
-      <label class="field">
-        <span class="flabel">ใส่เครื่องช่วยหายใจหรือไม่</span>
-        <div class="toggle-group" data-toggle="onVent">
-          <label class="toggle"><input type="radio" name="onVent" value="ใส่">ใส่</label>
-          <label class="toggle"><input type="radio" name="onVent" value="ไม่ได้ใส่" checked>ไม่ได้ใส่</label>
-        </div>
-      </label>
-
-      <div class="subblock" id="ventDetail">
-        <label class="field">
-          <span class="flabel">จำนวนวันที่ใส่เครื่องช่วยหายใจ</span>
-          <input type="number" name="ventDays" min="0" placeholder="จำนวนวัน">
-        </label>
-
-        <label class="field">
-          <span class="flabel">อาการ/อาการแสดงเข้าได้กับ VAP (เลือกได้มากกว่า 1)</span>
-          <div class="chip-group">
-            <label class="chip"><input type="checkbox" name="vapSign" value="ไข้ >38C">ไข้ &gt;38°C</label>
-            <label class="chip"><input type="checkbox" name="vapSign" value="เสมหะเปลี่ยนสี/ปริมาณเพิ่ม">เสมหะเปลี่ยนสี/ปริมาณเพิ่ม</label>
-            <label class="chip"><input type="checkbox" name="vapSign" value="CXR พบ infiltrate ใหม่">CXR พบ infiltrate ใหม่</label>
-            <label class="chip"><input type="checkbox" name="vapSign" value="WBC ผิดปกติ">WBC &gt;12,000 หรือ &lt;4,000</label>
-            <label class="chip"><input type="checkbox" name="vapSign" value="ไม่พบอาการ">ไม่พบอาการ</label>
-          </div>
-        </label>
-
-        <label class="field">
-          <span class="flabel">การปฏิบัติตาม VAP Bundle (เลือกได้มากกว่า 1)</span>
-          <div class="chip-group">
-            <label class="chip"><input type="checkbox" name="vapBundle" value="ยกหัวเตียง 30-45 องศา">ยกหัวเตียง 30–45°</label>
-            <label class="chip"><input type="checkbox" name="vapBundle" value="ดูแลช่องปาก">ดูแลช่องปากด้วย Chlorhexidine</label>
-            <label class="chip"><input type="checkbox" name="vapBundle" value="Sedation vacation">Sedation vacation ประเมินรายวัน</label>
-            <label class="chip"><input type="checkbox" name="vapBundle" value="ป้องกัน PUD">ป้องกัน Peptic Ulcer Disease</label>
-            <label class="chip"><input type="checkbox" name="vapBundle" value="ป้องกัน DVT">ป้องกัน DVT ร่วมด้วย</label>
-          </div>
-        </label>
-      </div>
-    </section>
-
-    <!-- 5. สรุปและการจัดการ -->
-    <section class="card">
-      <div class="card-head">
-        <div class="num">5</div>
-        <div>
-          <div class="card-title">สรุปผลและการจัดการเบื้องต้น</div>
-          <div class="card-desc">ระบุการดูแล/ส่งต่อเพิ่มเติม (ถ้ามี)</div>
-        </div>
-      </div>
-
-      <label class="field">
-        <span class="flabel">ระดับความเสี่ยงโดยรวม</span>
-        <div class="toggle-group" data-toggle="overallRisk">
-          <label class="toggle"><input type="radio" name="overallRisk" value="ต่ำ" checked>ต่ำ</label>
-          <label class="toggle"><input type="radio" name="overallRisk" value="ปานกลาง">ปานกลาง</label>
-          <label class="toggle"><input type="radio" name="overallRisk" value="สูง">สูง</label>
-        </div>
-      </label>
-
-      <label class="field">
-        <span class="flabel">การพยาบาล/การจัดการเบื้องต้น <span class="opt">(ไม่บังคับ)</span></span>
-        <textarea name="nursingAction" placeholder="เช่น พลิกตัวทุก 2 ชม., รายงานแพทย์, ปรับแผนการดูแล"></textarea>
-      </label>
-    </section>
-
   </form>
 </main>
 
@@ -513,7 +408,6 @@
     });
   }
   bindSub('piPresent','piDetail','พบ');
-  bindSub('onVent','ventDetail','ใส่');
 
   // ---- Braden Scale: build detailed option cards (6 categories) ----
   const bradenSections = [
@@ -600,6 +494,8 @@
 
   bradenForm.querySelectorAll('input[type=radio]').forEach(el => el.addEventListener('change', calcBraden));
 
+  let lastBradenLabel = '';
+
   function calcBraden(){
     let total = 0, done = 0;
     bradenSections.forEach(s => {
@@ -623,6 +519,7 @@
     else if(total <= 14){ banner.classList.add('warn'); label = 'เสี่ยงปานกลาง'; }
     else if(total <= 18){ label = 'เสี่ยงน้อย'; }
     banner.textContent = `Braden Score รวม: ${total}/23 — ${label}`;
+    lastBradenLabel = label;
     return total;
   }
   calcBraden();
@@ -633,7 +530,7 @@
     t.textContent = msg;
     t.classList.toggle('err', !!isErr);
     t.classList.add('show');
-    setTimeout(()=> t.classList.remove('show'), 3200);
+    setTimeout(()=> t.classList.remove('show'), 5000);
   }
 
   // ---- submit ----
@@ -662,12 +559,6 @@
         data[key] = val;
       }
     });
-    // normalize checkbox groups to comma-joined strings
-    ['dvtSym','vapSign','vapBundle'].forEach(k=>{
-      if(Array.isArray(data[k])) data[k] = data[k].join(', ');
-      else if(data[k]) data[k] = data[k];
-      else data[k] = '';
-    });
     data.bradenTotal = calcBraden();
     data.submittedAt = new Date().toISOString();
 
@@ -682,13 +573,12 @@
       });
       const result = await res.json();
       if(result.status === 'success'){
-        showToast('บันทึกข้อมูลสำเร็จ ✓');
+        showToast(`บันทึกสำเร็จ ✓ Braden Score รวม: ${data.bradenTotal}/23 — ${lastBradenLabel}`);
         form.reset();
         document.querySelector('input[name="assessDate"]').valueAsDate = new Date();
         document.querySelectorAll('.toggle-group').forEach(g=>g.dispatchEvent(new Event('change')));
         document.querySelectorAll('.chip input').forEach(c=>c.dispatchEvent(new Event('change')));
         document.getElementById('piDetail').classList.remove('show');
-        document.getElementById('ventDetail').classList.remove('show');
         calcBraden();
       } else {
         showToast('เกิดข้อผิดพลาด: ' + (result.message || 'ไม่ทราบสาเหตุ'), true);
